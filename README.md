@@ -9,7 +9,7 @@
 
 ## 📌 About This Project
 
-Stack Shop is a **full‑stack e‑commerce web app** created as a learning project to practice building modern, type‑safe, and performant web applications using **TanStack Start** with **Appwrite backend services**.
+Stack Shop is a **full‑stack e‑commerce web app** created as a learning project to practice building modern, type‑safe, and performant web applications using **TanStack Start** with **Supabase backend services**.
 
 ---
 
@@ -19,7 +19,7 @@ Stack Shop is a **full‑stack e‑commerce web app** created as a learning proj
 ✔ Add to cart & shopping cart management  
 ✔ Responsive UI for mobile and desktop  
 ✔ Fast navigation with SSR and type‑safe routing  
-✔ Backend powered by Appwrite  
+✔ Backend powered by Supabase  
 ✔ Deployed to Appwrite Sites  
 
 ---
