@@ -13,18 +13,6 @@ Stack Shop is a **full‑stack e‑commerce web app** created as a learning proj
 
 ---
 
-## 🚀 What You’ll Learn
-
-This project demonstrates how to:
-
-- Build a **full‑stack React app** using TanStack Start.
-- Structure routes with **TanStack Router**.
-- Fetch and manage data with **TanStack Query**.
-- Use **Appwrite** for backend services like authentication and database.
-- Deploy a TanStack Start app to **Appwrite Sites**.
-
----
-
 ## 🧱 Core Features
 
 ✔ Product listing with images and details  
@@ -66,13 +54,6 @@ Language: TypeScript
 ## 📁 Deployment
 
 This app is deployed using **Appwrite Sites**, which supports hosting TanStack Start apps with minimal configuration.
-
----
-
-## 📚 Course Reference
-
-Original course repository:  
-https://github.com/kulkarniankita/stackshop-app
 
 ---
 
