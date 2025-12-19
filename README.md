@@ -1,6 +1,6 @@
 # Stack Shop — TanStack Start E‑Commerce Project
 
-> A modern e‑commerce learning project built with **TanStack Start** and **Appwrite**, following the official course by *kulkarniankita/stackshop-app*.
+> A modern e‑commerce learning project built with **TanStack Start** and **Appwrite**
 
 🔗 **Live Demo:** https://stack-shop-a-tanstack-project.appwrite.network/  
 📦 **Source Code:** https://github.com/Tawhid-sw/stack-shop-a-tanstack-project
@@ -10,8 +10,6 @@
 ## 📌 About This Project
 
 Stack Shop is a **full‑stack e‑commerce web app** created as a learning project to practice building modern, type‑safe, and performant web applications using **TanStack Start** with **Appwrite backend services**.
-
-This project was built by following the *Stack Shop course repo* (https://github.com/kulkarniankita/stackshop-app), adapted and deployed as my own learning implementation.
 
 ---
 
