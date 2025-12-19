@@ -5,17 +5,17 @@ import {
   CardDescription,
   CardTitle,
 } from "@/components/ui/card";
-import { sampleProducts } from "@/db/seed";
 import { ProductCard } from "@/components/ProductCard";
 import { createMiddleware, createServerFn, json } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
+import { getAllProducts } from "@/data/products";
 
 const fetchProducts = createServerFn({ method: "GET" }).handler(async () => {
-  return sampleProducts;
+  return await getAllProducts();
 });
 
-const loggerMiddleware = createMiddleware().server(async ({ next }) => {
-  console.log("loggerMiddleware");
+const loggerMiddleware = createMiddleware().server(async ({ next , request }) => {
+  console.log("loggerMiddleware", request.url  );
   return next()
 })
 
@@ -24,11 +24,10 @@ export const Route = createFileRoute("/products/")({
   loader: async () => {
     return fetchProducts();
   },
-  // ssr: false,
    server: {
     middleware:[loggerMiddleware],
     handlers: {
-      POST: async ({ request }) => {
+      POST: async () => {
         // const body = await request.json()
         return json({ message: `Hello world`})
       },
@@ -43,6 +42,7 @@ function RouteComponent() {
     queryFn: () => fetchProducts(),
     initialData: products
   })
+  console.log(process.env.DATABASE_URL!)
   return (
     <div className="space-y-6">
       <section className="space-y-4 max-w-6xl mx-auto">

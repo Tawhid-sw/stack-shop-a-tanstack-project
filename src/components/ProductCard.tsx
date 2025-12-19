@@ -10,6 +10,7 @@ import {
 } from "./ui/card";
 import { Link } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
+import { ProductSelect } from '@/db/schema';
 
 const inventoryTone = {
   "in-stock": "bg-emerald-50 text-emerald-600 border-emerald-100",
@@ -17,7 +18,7 @@ const inventoryTone = {
   preorder: "bg-indigo-50 text-indigo-700 border-indigo-100",
 };
 
-export const ProductCard = ({ product }: { product: any }) => {
+export const ProductCard = ({ product }: { product: ProductSelect }) => {
   return (
     <Link
       to="/products/$id"

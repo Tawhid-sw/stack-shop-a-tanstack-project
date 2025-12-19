@@ -7,24 +7,20 @@ import {
 } from "@/components/ui/card";
 import { ArrowRightIcon } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import { sampleProducts } from "@/db/seed";
 import { ProductCard } from "@/components/ProductCard";
+import { getRecommendedProducts } from "@/data/products.ts";
 
-// export const getServerTime = createServerFn().handler(async () => {
-//   return new Date().toISOString();
-// });
 
 export const Route = createFileRoute("/")({
   component: App,
   loader: async () => {
-    return { products: sampleProducts };
+    const products = await getRecommendedProducts()
+    return { products };
   },
 });
 
 async function App() {
   const { products } = Route.useLoaderData();
-  // const serverTime = await getServerTime();
-  // console.log(serverTime);
   return (
     <div className="space-y-12 bg-linear-to-b from-slate-50 via-white to-slate-50 p-6">
       <section>

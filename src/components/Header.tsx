@@ -27,7 +27,7 @@ export default function Header() {
                 Home
               </Link>
               <Link
-                to="/products"
+                to="/products/create-product"
                 className="rounded-lg px-3 py-1 transition hover:bg-slate-100 dark:hover:bg-slate-800"
               >
                 Products
@@ -37,7 +37,7 @@ export default function Header() {
           </div>
           <div className="flex items-center gap-2">
             <Link
-              to="/cart"
+              to="/products/cart"
               className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-semibold text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
             >
               <span>Cart</span>
