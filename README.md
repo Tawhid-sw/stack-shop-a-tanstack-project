@@ -29,7 +29,8 @@ Stack Shop is a **full‑stack e‑commerce web app** created as a learning proj
 Framework: TanStack Start  
 Routing: TanStack Router  
 Data Fetching: TanStack Query  
-Backend & Hosting: Appwrite Sites  
+Backend: Supabase
+Hosting: Appwrite Sites  
 Styling: Tailwind CSS  
 Language: TypeScript  
 
