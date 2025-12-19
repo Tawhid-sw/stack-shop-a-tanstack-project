@@ -1,26 +1,30 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { ProductCard } from '@/components/ProductCard'
 import {
   Card,
-  CardHeader,
   CardDescription,
+  CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { ArrowRightIcon } from "lucide-react";
-import { Link } from "@tanstack/react-router";
-import { ProductCard } from "@/components/ProductCard";
-import { getRecommendedProducts } from "@/data/products.ts";
+} from '@/components/ui/card'
+import { createFileRoute, Link } from '@tanstack/react-router'
+import { createServerFn } from '@tanstack/react-start'
+import { ArrowRightIcon } from 'lucide-react'
 
+const fetchProductsFn = createServerFn({ method: 'GET' }).handler(async () => {
+  const { getRecommendedProducts } = await import('@/data/products')
+  const products = await getRecommendedProducts()
+  return products
+})
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute('/')({
   component: App,
   loader: async () => {
-    const products = await getRecommendedProducts()
-    return { products };
+    // This runs on server during SSR AND on client during navigation
+    return fetchProductsFn()
   },
-});
+})
 
 async function App() {
-  const { products } = Route.useLoaderData();
+  const products = Route.useLoaderData()
   return (
     <div className="space-y-12 bg-linear-to-b from-slate-50 via-white to-slate-50 p-6">
       <section>
@@ -76,5 +80,5 @@ async function App() {
         </Card>
       </section>
     </div>
-  );
+  )
 }

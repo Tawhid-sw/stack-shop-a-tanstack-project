@@ -1,4 +1,4 @@
-import { createFileRoute, notFound } from "@tanstack/react-router";
+import { RecommendedProducts } from '@/components/RecommendedProducts'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -8,13 +8,20 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { Link } from "@tanstack/react-router";
-import { ArrowLeftIcon, ShoppingBagIcon, SparklesIcon } from "lucide-react";
-import { Suspense } from "react";
-import { RecommendedProducts } from "@/components/RecommendedProducts";
-import { createServerFn } from "@tanstack/react-start";
-import type { ProductSelect } from "@/db/schema.ts";
-import { Skeleton } from "@/components/ui/skeleton";
+import { ProductSelect } from '@/db/schema'
+import {
+  createFileRoute,
+  Link,
+  notFound,
+  useRouter,
+} from '@tanstack/react-router'
+import { createServerFn } from '@tanstack/react-start'
+import { ArrowLeftIcon, ShoppingBagIcon, SparklesIcon } from 'lucide-react'
+import { Suspense } from 'react'
+import { Skeleton } from '@/components/ui/skeleton'
+import { mutateCartFn } from './cart'
+import { useQueryClient } from '@tanstack/react-query'
+
 
 const fetchProductById = createServerFn({ method: 'POST' })
   .inputValidator((data: { id: string }) => data)
@@ -41,15 +48,13 @@ export const Route = createFileRoute('/products/$id')({
     }
     // Return recommendedProducts as a Promise for Suspense
     const recommendedProducts = fetchRecommendedProducts()
-    console.log('product', product)
     return { product, recommendedProducts }
   },
   head: async ({ loaderData: data }) => {
     const { product } = data as {
-      product: ProductSelect,
+      product: ProductSelect
       recommendedProducts: Promise<ProductSelect[]>
     }
-    console.log('product in head', product)
     if (!product) {
       return {}
     }
@@ -78,6 +83,8 @@ export const Route = createFileRoute('/products/$id')({
 })
 
 function RouteComponent() {
+   const router = useRouter()
+  const queryClient = useQueryClient()
   const { product, recommendedProducts } = Route.useLoaderData()
   return (
         <div>
@@ -140,21 +147,20 @@ function RouteComponent() {
                 <div className="flex flex-wrap gap-3">
                   <Button
                     className="bg-slate-900 px-4 text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:bg-white dark:text-slate-900"
-                    onClick={async () => {
-                      console.log('add to cart')
-                      // e.preventDefault()
-                      // e.stopPropagation()
-                      // await mutateCartFn({
-                      //   data: {
-                      //     action: 'add',
-                      //     productId: product.id,
-                      //     quantity: 1,
-                      //   },
-                      // })
-                      // await router.invalidate({ sync: true })
-                      // await queryClient.invalidateQueries({
-                      //   queryKey: ['cart-items-data'],
-                      // })
+                    onClick={async (e) => {
+                      e.preventDefault()
+                      e.stopPropagation()
+                      await mutateCartFn({
+                        data: {
+                          action: 'add',
+                          productId: product.id,
+                          quantity: 1,
+                        },
+                      })
+                      await router.invalidate({ sync: true })
+                      await queryClient.invalidateQueries({
+                        queryKey: ['cart-items-data'],
+                      })
                     }}
                   >
                     <ShoppingBagIcon size={16} />

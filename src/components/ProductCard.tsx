@@ -8,9 +8,11 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
-import { Link } from "@tanstack/react-router";
+import { Link, useRouter } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
 import { ProductSelect } from '@/db/schema';
+import { mutateCartFn } from "@/routes/products/cart";
+import { useQueryClient } from "@tanstack/react-query";
 
 const inventoryTone = {
   "in-stock": "bg-emerald-50 text-emerald-600 border-emerald-100",
@@ -19,6 +21,8 @@ const inventoryTone = {
 };
 
 export const ProductCard = ({ product }: { product: ProductSelect }) => {
+  const router = useRouter()
+  const queryClient = useQueryClient()
   return (
     <Link
       to="/products/$id"
@@ -61,13 +65,25 @@ export const ProductCard = ({ product }: { product: ProductSelect }) => {
         </CardContent>
         <CardFooter className="pt-0 flex items-center justify-between border-t-0 bg-transparent">
           <span className="text-lg font-semibold">${product.price}</span>
-          <Button
+  <Button
             size="sm"
-            variant={"secondary"}
-            className={"bg-slate-900 text-white hover:bg-slate-800"}
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
+            variant={'secondary'}
+            className={'bg-slate-900 text-white hover:bg-slate-800'}
+            onClick={async (e) => {
+              console.log('add to cart')
+              e.preventDefault()
+              e.stopPropagation()
+              await mutateCartFn({
+                data: {
+                  action: 'add',
+                  productId: product.id,
+                  quantity: 1,
+                },
+              })
+              await router.invalidate({ sync: true })
+              await queryClient.invalidateQueries({
+                queryKey: ['cart-items-data'],
+              })
             }}
           >
             <ShoppingBagIcon size={16} /> Add to Cart
