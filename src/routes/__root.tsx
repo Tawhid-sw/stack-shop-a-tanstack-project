@@ -45,10 +45,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
-        <script
-          crossOrigin="anonymous"
-          src="//unpkg.com/react-scan/dist/auto.global.js"
-        />
+        
       </head>
       <body>
         <div className="min-h-screen bg-slate-100 text-slate-900 dark:bg-slate-950 dark:text-white">
